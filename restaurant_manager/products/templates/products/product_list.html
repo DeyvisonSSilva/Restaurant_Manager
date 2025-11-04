@@ -1,0 +1,35 @@
+{% extends 'products/base.html' %} {% block content %}
+<h2>Lista de Produtos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Disponível</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>R$ {{ product.price }}</td>
+      <td>{{ product.available|yesno:"Sim,Não" }}</td>
+      <td>
+        <a class="btn edit" href="{% url 'product_update' product.pk %}"
+          >Editar</a
+        >
+        <a class="btn delete" href="{% url 'product_delete' product.pk %}"
+          >Excluir</a
+        >
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">Nenhum produto cadastrado.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
